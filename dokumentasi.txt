@@ -1,0 +1,232 @@
+Cara Instal Laravel
+laravel new .
+Pilih None
+Lalu pilih [0] Pest
+Lalu pilih mysql
+Lalu pilih yes atau no
+
+atau 
+composer create-project --prefer-dist laravel/laravel nama-proyek "12.*"
+
+cek veri laravel
+php artisan --version
+
+menjalankan laravel
+php artisan serve
+
+lalu menginstal api dan laravel sanctum
+php artisan install:api 
+lalu pilih yes
+
+menjalankan strorage link untuk menyimpan gambar
+php artisan storage:link
+
+############################
+### Menambahkan JWT ###
+Package ini digunakan untuk autentikasi berbasis JWT (JSON Web Token) di Laravel.
+Dengan kata lain, ia membantu kamu membangun sistem login dan proteksi API tanpa session, seperti yang biasa digunakan pada RESTful API atau aplikasi mobile/backend API.
+composer require tymon/jwt-auth
+
+kemudian Generate secret key untuk JWT:
+php artisan jwt:secret
+
+kemudian ubah
+class User extends Authenticatable 
+menjadi 
+class User extends Authenticatable implements JWTSubject
+
+############################
+
+lalu tambahkan di .env di atas SESSION_DRIVER=database
+JWT_SECRET=oKJYM0G7WJPnUg5MfjhIPWObJ9FDBjgKknVd7X39xSvMMVBmvmBiEvnfBq8ba7PB
+
+####### CORS #######
+Buat manual config/cors.php
+atau dengan Cara
+php artisan vendor:publish --tag=cors
+
+lalu jalankan
+php artisan config:clear
+php artisan cache:clear
+php artisan serve
+
+
+isi cors.php :
+
+<?php
+
+return [
+
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+
+    'allowed_methods' => ['*'],
+
+    'allowed_origins' => [
+        'http://localhost:3000', // domain Next.js kamu
+    ],
+
+    'allowed_origins_patterns' => [],
+
+    'allowed_headers' => ['*'],
+
+    'exposed_headers' => [],
+
+    'max_age' => 0,
+
+    'supports_credentials' => true,
+];
+
+
+atau 
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Paths
+    |--------------------------------------------------------------------------
+    |
+    | Jalur mana yang akan menerapkan aturan CORS.
+    | Biasanya untuk route API saja.
+    |
+    */
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Methods
+    |--------------------------------------------------------------------------
+    |
+    | Metode HTTP apa saja yang boleh digunakan dari origin luar.
+    | Gunakan '*' untuk semua (GET, POST, PUT, DELETE, dll).
+    |
+    */
+    'allowed_methods' => ['*'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Origins
+    |--------------------------------------------------------------------------
+    |
+    | Domain atau origin yang diizinkan mengakses API ini.
+    | Tambahkan domain frontend, mobile, atau subdomain lain.
+    |
+    */
+    'allowed_origins' => [
+        'https://dashboard.mamala.id',
+        'https://mobile.mamala.id',
+        'capacitor://localhost',   // jika pakai Ionic/Capacitor
+        'http://localhost:3000',   // untuk development React/Vue
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Origins Patterns
+    |--------------------------------------------------------------------------
+    |
+    | Jika kamu ingin mengizinkan banyak subdomain tanpa menuliskannya satu-satu,
+    | bisa gunakan pola regex seperti '*.mamala.id'
+    |
+    */
+    'allowed_origins_patterns' => [
+        '*.mamala.id',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Headers
+    |--------------------------------------------------------------------------
+    |
+    | Header apa saja yang boleh dikirim oleh client.
+    | '*' berarti semua header diperbolehkan.
+    |
+    */
+    'allowed_headers' => ['*'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exposed Headers
+    |--------------------------------------------------------------------------
+    |
+    | Header apa saja yang boleh dibaca oleh browser dari response.
+    | Biasanya dibiarkan kosong.
+    |
+    */
+    'exposed_headers' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Max Age
+    |--------------------------------------------------------------------------
+    |
+    | Berapa lama hasil preflight request boleh di-cache (dalam detik).
+    |
+    */
+    'max_age' => 3600,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Supports Credentials
+    |--------------------------------------------------------------------------
+    |
+    | Jika true, maka cookie, token, atau credential akan diizinkan.
+    |
+    */
+    'supports_credentials' => true,
+];
+######### selesai cors ########
+
+membuat AuthController -> Login, Register, Profile dan Logout API 
+membuat ProductControlleer ->
+
+membuat model dan tanda -m adalah membuat migrate
+php artisan make:model Product -m
+
+konversi ke database
+php artisan migrate
+
+membuat controller ProductController
+php artisan make:controller ProductController --resource --api
+
+
+
+
+Instal Next
+npx create-next-app@latest .
+
+menjalankan next
+npm run dev
+
+dependensi
+npm install axios js-cookie
+npm i bootstrap axios react-hot-toast sweetalert2 js-cookie
+
+
+1. react datepicker
+npm install react-day-picker
+
+2. react icon
+npm i react-icons
+npm install react-icons --save // sama seperti di atas tapi sekarang sudah tidak digunakan lagi
+npm i clsx // membantu mengggabungkan class css, boleh tidak digunakan
+
+3. dependency untuk scrollbar
+npm install tailwind-scrollbar // tidak penting
+
+4. dependency crop gambar
+npm install react-image-crop
+npm install react-image-crop react-icons
+
+
+//date picker
+https://www.npmjs.com/package/react-date-range
+
+
+File khusus routing (page, layout, dll.) → wajib lowercase.
+
+Komponen → sebaiknya PascalCase.
+
+Utilitas/helper → lowercase.
+
+
+https://github.com/owthub
